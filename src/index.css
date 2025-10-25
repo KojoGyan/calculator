@@ -1,0 +1,64 @@
+*,
+::before,
+::after {
+  box-sizing: border-box;
+} 
+
+body {
+  margin: 0;
+  font-family: Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+  
+  div#root {
+    width: fit-content;
+    margin: 0 auto;
+    height: 100dvh;
+    width: clamp(330px, 90%, 600px);
+  }
+
+  article {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: inherit;
+    padding-bottom: 1em;
+  }
+  
+  
+  
+  .screen {
+    width: 100%;
+    padding: 1em 1em clamp(.25em, 18vh , 10em);
+  }
+  
+  p.workings {
+    text-align: right;
+    font-size: 5em;
+    font-weight: 500;
+    margin: 0;
+    color: hsl(218, 44%, 22%);
+  }
+  
+  p.results {
+    margin: 1vh 0;
+    font-size: 1.5em;
+    text-align: right;
+    color: hsl(212, 45%, 89%);
+}
+
+.keypad {
+  width: 100%;
+  margin-bottom: 1em;
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-row: 1fr 1fr 1fr 1fr 1fr 1fr;
+  gap: .125em;
+}
+
+.keypad button {
+  font-size: 1.1125em;
+  font-weight: 500;
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
