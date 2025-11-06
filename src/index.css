@@ -30,6 +30,7 @@ body {
   .screen {
     width: 100%;
     padding: 1em 1em clamp(.25em, 18vh , 10em);
+    overflow: auto;
   }
   
   p.workings {
@@ -61,4 +62,6 @@ body {
   font-size: 1.1125em;
   font-weight: 500;
   font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  border-radius: calc(Infinity*1px);
+  border: none;
 }
