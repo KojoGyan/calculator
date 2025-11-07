@@ -12,7 +12,7 @@ export default function Keypad (props) {
                 return props.HandleClick({"type": props.actions.REMOVE_DIGIT})
             }
             else if (button === "+" || button === "-" || button === "*" || button === "/") {
-                return props.HandleClick({"type": props.actions.ADD_OPERATION, "payload": button})
+                return props.HandleClick({"type": props.actions.ADD_OPERATOR, "payload": button})
             }
             else {
                 return props.HandleClick({"type": props.actions.ADD_DIGIT, "payload": button})
