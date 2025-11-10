@@ -1,6 +1,6 @@
 import Screen from "./components/screen"
 import Keypad from "./components/keypad"
-import { useReducer, useEffect } from "react"
+import { useReducer, useEffect} from "react"
 
 export default function App(){
 
@@ -99,6 +99,63 @@ export default function App(){
   }
   
   const [state, dispacth] = useReducer(reducer, {"prev_operand": '', "operator": '', "operand": '', "isResultShown": false})
+
+  useEffect(()=>{
+    // Use a named handler and clean it up to avoid duplicate listeners (React 18 StrictMode mounts effects twice in dev)
+    const handler = (e) => {
+      // log the key for debugging
+      console.log("Key pressed:", e.key, "target:", e.target && e.target.tagName)
+
+      // determine if the event target is an editable element (so we don't override normal typing)
+      const target = e.target
+      const isEditable = target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable)
+
+      switch (e.key) {
+        case "=":
+        case "Enter":
+          // allow Enter anywhere
+          dispacth({"type": ACTIONS.EVALUATE})
+          break
+
+        case "Backspace":
+        case "Delete":
+          // Prevent browser navigation (Backspace -> back) when not typing in an input
+          if (!isEditable) e.preventDefault()
+          console.log("Removing digit via key:", e.key)
+          dispacth({"type": ACTIONS.REMOVE_DIGIT})
+          break
+
+        case "+":
+        case "-":
+        case "*":
+        case "/":
+          // if focused in an input, let the input handle it
+          if (isEditable) break
+          dispacth({"type": ACTIONS.ADD_OPERATOR, "payload": e.key})
+          break
+
+        case ".":
+        case "0":
+        case "1":
+        case "2":
+        case "3":
+        case "4":
+        case "5":
+        case "6":
+        case "7":
+        case "8":
+        case "9":
+          // if focused in an input, let the input handle it
+          if (isEditable) break
+          dispacth({"type": ACTIONS.ADD_DIGIT, "payload": e.key})
+          break
+        }
+    }
+
+    // prefer 'keydown' for broader key coverage; keep consistent add/remove
+    window.addEventListener("keydown", handler)
+    return () => window.removeEventListener("keydown", handler)
+  },[])
 
 
   return (
